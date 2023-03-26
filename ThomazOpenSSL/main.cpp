@@ -42,9 +42,9 @@ static const uint8_t cipherText[60] = {
     0x87, 0x58, 0x49, 0x13, 0x77, 0xc8, 0x2c, 0x5c, 0x6d, 0x4f, 0x2d, 0x72
 };
 
-static bool isAscii(unsigned char* buf)
+static bool isAscii(unsigned char* buf, int count)
 {
-    for (int i = 0; i < 60; ++i)
+    for (int i = 0; i < count; ++i)
     {
         if (buf[i] > 127) return false;
     }
@@ -95,6 +95,10 @@ int main()
 
     for (uint32_t i = 0; i < 65536; ++i)
     {
+        unsigned char plainText[61];
+        memcpy(plainText, cipherText, 60);
+        plainText[60] = '\0';
+
         BigNum msbs;
         msbs.pBN = BN_new();
         BN_set_word(msbs.pBN, i); // TODO CHECK
@@ -173,6 +177,20 @@ int main()
             BN_clear_bit(nextOut1.pBN, 255 - i);
         }
 
+        // Decode the first 30 bytes, to see if this is readable.
+        uint8_t pad[60];
+        BN_bn2bin(nextOut1.pBN, pad);
+
+        for (int i = 0; i < 30; ++i)
+        {
+            plainText[i] ^= pad[i];
+        }
+
+        if (!isAscii(plainText, 30))
+        {
+            continue;
+        }
+
         // Third round
         EcPoint SiiP(group);
         if (0 == EC_POINT_mul(group, SiiP.pECPoint, NULL, P.pECPoint, SiPx.pBN, ctx))
@@ -204,19 +222,14 @@ int main()
             BN_clear_bit(nextOut2.pBN, 255 - i);
         }
 
-        uint8_t pad[60];
-        BN_bn2bin(nextOut1.pBN, pad);
         BN_bn2bin(nextOut2.pBN, &pad[30]);
 
-        unsigned char plainText[61];
-        memcpy(plainText, cipherText, 60);
-        for (int i = 0; i < 60; ++i)
+        for (int i = 30; i < 60; ++i)
         {
             plainText[i] ^= pad[i];
         }
-        plainText[60] = '\0';
 
-        if (isAscii(plainText))
+        if (isAscii(&plainText[30], 30))
         {
             cout << plainText << endl;
             return 0;
