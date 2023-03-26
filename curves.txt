@@ -1,0 +1,667 @@
+Curve:
+
+704
+
+SECG/WTLS curve over a 112 bit prime field
+
+
+
+Curve:
+
+705
+
+SECG curve over a 112 bit prime field
+
+
+
+Curve:
+
+706
+
+SECG curve over a 128 bit prime field
+
+
+
+Curve:
+
+707
+
+SECG curve over a 128 bit prime field
+
+
+
+Curve:
+
+708
+
+SECG curve over a 160 bit prime field
+
+
+
+Curve:
+
+709
+
+SECG curve over a 160 bit prime field
+
+
+
+Curve:
+
+710
+
+SECG/WTLS curve over a 160 bit prime field
+
+
+
+Curve:
+
+711
+
+SECG curve over a 192 bit prime field
+
+
+
+Curve:
+
+712
+
+SECG curve over a 224 bit prime field
+
+
+
+Curve:
+
+713
+
+NIST/SECG curve over a 224 bit prime field
+
+
+
+Curve:
+
+714
+
+SECG curve over a 256 bit prime field
+
+
+
+Curve:
+
+715
+
+NIST/SECG curve over a 384 bit prime field
+
+
+
+Curve:
+
+716
+
+NIST/SECG curve over a 521 bit prime field
+
+
+
+Curve:
+
+409
+
+NIST/X9.62/SECG curve over a 192 bit prime field
+
+
+
+Curve:
+
+410
+
+X9.62 curve over a 192 bit prime field
+
+
+
+Curve:
+
+411
+
+X9.62 curve over a 192 bit prime field
+
+
+
+Curve:
+
+412
+
+X9.62 curve over a 239 bit prime field
+
+
+
+Curve:
+
+413
+
+X9.62 curve over a 239 bit prime field
+
+
+
+Curve:
+
+414
+
+X9.62 curve over a 239 bit prime field
+
+
+
+Curve:
+
+415
+
+X9.62/SECG curve over a 256 bit prime field
+
+
+
+Curve:
+
+717
+
+SECG curve over a 113 bit binary field
+
+
+
+Curve:
+
+718
+
+SECG curve over a 113 bit binary field
+
+
+
+Curve:
+
+719
+
+SECG/WTLS curve over a 131 bit binary field
+
+
+
+Curve:
+
+720
+
+SECG curve over a 131 bit binary field
+
+
+
+Curve:
+
+721
+
+NIST/SECG/WTLS curve over a 163 bit binary field
+
+
+
+Curve:
+
+722
+
+SECG curve over a 163 bit binary field
+
+
+
+Curve:
+
+723
+
+NIST/SECG curve over a 163 bit binary field
+
+
+
+Curve:
+
+724
+
+SECG curve over a 193 bit binary field
+
+
+
+Curve:
+
+725
+
+SECG curve over a 193 bit binary field
+
+
+
+Curve:
+
+726
+
+NIST/SECG/WTLS curve over a 233 bit binary field
+
+
+
+Curve:
+
+727
+
+NIST/SECG/WTLS curve over a 233 bit binary field
+
+
+
+Curve:
+
+728
+
+SECG curve over a 239 bit binary field
+
+
+
+Curve:
+
+729
+
+NIST/SECG curve over a 283 bit binary field
+
+
+
+Curve:
+
+730
+
+NIST/SECG curve over a 283 bit binary field
+
+
+
+Curve:
+
+731
+
+NIST/SECG curve over a 409 bit binary field
+
+
+
+Curve:
+
+732
+
+NIST/SECG curve over a 409 bit binary field
+
+
+
+Curve:
+
+733
+
+NIST/SECG curve over a 571 bit binary field
+
+
+
+Curve:
+
+734
+
+NIST/SECG curve over a 571 bit binary field
+
+
+
+Curve:
+
+684
+
+X9.62 curve over a 163 bit binary field
+
+
+
+Curve:
+
+685
+
+X9.62 curve over a 163 bit binary field
+
+
+
+Curve:
+
+686
+
+X9.62 curve over a 163 bit binary field
+
+
+
+Curve:
+
+687
+
+X9.62 curve over a 176 bit binary field
+
+
+
+Curve:
+
+688
+
+X9.62 curve over a 191 bit binary field
+
+
+
+Curve:
+
+689
+
+X9.62 curve over a 191 bit binary field
+
+
+
+Curve:
+
+690
+
+X9.62 curve over a 191 bit binary field
+
+
+
+Curve:
+
+693
+
+X9.62 curve over a 208 bit binary field
+
+
+
+Curve:
+
+694
+
+X9.62 curve over a 239 bit binary field
+
+
+
+Curve:
+
+695
+
+X9.62 curve over a 239 bit binary field
+
+
+
+Curve:
+
+696
+
+X9.62 curve over a 239 bit binary field
+
+
+
+Curve:
+
+699
+
+X9.62 curve over a 272 bit binary field
+
+
+
+Curve:
+
+700
+
+X9.62 curve over a 304 bit binary field
+
+
+
+Curve:
+
+701
+
+X9.62 curve over a 359 bit binary field
+
+
+
+Curve:
+
+702
+
+X9.62 curve over a 368 bit binary field
+
+
+
+Curve:
+
+703
+
+X9.62 curve over a 431 bit binary field
+
+
+
+Curve:
+
+735
+
+WTLS curve over a 113 bit binary field
+
+
+
+Curve:
+
+736
+
+NIST/SECG/WTLS curve over a 163 bit binary field
+
+
+
+Curve:
+
+737
+
+SECG curve over a 113 bit binary field
+
+
+
+Curve:
+
+738
+
+X9.62 curve over a 163 bit binary field
+
+
+
+Curve:
+
+739
+
+SECG/WTLS curve over a 112 bit prime field
+
+
+
+Curve:
+
+740
+
+SECG/WTLS curve over a 160 bit prime field
+
+
+
+Curve:
+
+741
+
+WTLS curve over a 112 bit prime field
+
+
+
+Curve:
+
+742
+
+WTLS curve over a 160 bit prime field
+
+
+
+Curve:
+
+743
+
+NIST/SECG/WTLS curve over a 233 bit binary field
+
+
+
+Curve:
+
+744
+
+NIST/SECG/WTLS curve over a 233 bit binary field
+
+
+
+Curve:
+
+745
+
+WTLS curve over a 224 bit prime field
+
+
+
+Curve:
+
+749
+
+
+
+        IPSec/IKE/Oakley curve #3 over a 155 bit binary field.
+
+        Not suitable for ECDSA.
+
+        Questionable extension field!
+
+
+
+Curve:
+
+750
+
+
+
+        IPSec/IKE/Oakley curve #4 over a 185 bit binary field.
+
+        Not suitable for ECDSA.
+
+        Questionable extension field!
+
+
+
+Curve:
+
+921
+
+RFC 5639 curve over a 160 bit prime field
+
+
+
+Curve:
+
+922
+
+RFC 5639 curve over a 160 bit prime field
+
+
+
+Curve:
+
+923
+
+RFC 5639 curve over a 192 bit prime field
+
+
+
+Curve:
+
+924
+
+RFC 5639 curve over a 192 bit prime field
+
+
+
+Curve:
+
+925
+
+RFC 5639 curve over a 224 bit prime field
+
+
+
+Curve:
+
+926
+
+RFC 5639 curve over a 224 bit prime field
+
+
+
+Curve:
+
+927
+
+RFC 5639 curve over a 256 bit prime field
+
+
+
+Curve:
+
+928
+
+RFC 5639 curve over a 256 bit prime field
+
+
+
+Curve:
+
+929
+
+RFC 5639 curve over a 320 bit prime field
+
+
+
+Curve:
+
+930
+
+RFC 5639 curve over a 320 bit prime field
+
+
+
+Curve:
+
+931
+
+RFC 5639 curve over a 384 bit prime field
+
+
+
+Curve:
+
+932
+
+RFC 5639 curve over a 384 bit prime field
+
+
+
+Curve:
+
+933
+
+RFC 5639 curve over a 512 bit prime field
+
+
+
+Curve:
+
+934
+
+RFC 5639 curve over a 512 bit prime field
+
+
+
+Curve:
+
+1172
+
+SM2 curve over a 256 bit prime field
+
+
