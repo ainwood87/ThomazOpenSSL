@@ -3,8 +3,6 @@
 #include <openssl/obj_mac.h>
 #include <iostream>
 
-using namespace std;
-
 // Make wrapper classes for BigNum and elliptic curve points
 // so I don't have to manually free a dozen objects every iteration.
 class EcPoint {
@@ -147,11 +145,7 @@ int main()
 
         // second round
         EcPoint SiP(group);
-        if (0 == EC_POINT_mul(group, SiP.pECPoint, NULL, SiQ.pECPoint, k.pBN, ctx))
-        {
-            cerr << "error" << endl;
-            return -1;
-        }
+        EC_POINT_mul(group, SiP.pECPoint, NULL, SiQ.pECPoint, k.pBN, ctx);
 
         BigNum SiPx;
         BigNum SiPy;
@@ -168,23 +162,26 @@ int main()
         Riiy.pBN = BN_new();
         EC_POINT_get_affine_coordinates(group, Rii.pECPoint, Riix.pBN, Riiy.pBN, ctx);
 
-        BigNum nextOut1;
-        nextOut1.pBN = BN_new();
-        BN_copy(nextOut1.pBN, Riix.pBN);
+        // output from the round
+        BigNum roundOut1;
+        roundOut1.pBN = BN_new();
+        BN_copy(roundOut1.pBN, Riix.pBN);
+        // Remove the 16 MSBs by manually clearing each one.
         for (int i = 0; i < 16; ++i)
         {
-            BN_clear_bit(nextOut1.pBN, 255 - i);
+            BN_clear_bit(roundOut1.pBN, 255 - i);
         }
 
         // Decode the first 30 bytes, to see if this is readable.
         uint8_t pad[60];
-        BN_bn2bin(nextOut1.pBN, pad);
+        BN_bn2bin(roundOut1.pBN, pad);
 
         for (int i = 0; i < 30; ++i)
         {
             plainText[i] ^= pad[i];
         }
 
+        // If the first 30 bytes are not ascii, move onto the next iteration.
         if (!isAscii(plainText, 30))
         {
             continue;
@@ -192,11 +189,7 @@ int main()
 
         // Third round
         EcPoint SiiP(group);
-        if (0 == EC_POINT_mul(group, SiiP.pECPoint, NULL, P.pECPoint, SiPx.pBN, ctx))
-        {
-            cerr << "error" << endl;
-            return -1;
-        }
+        EC_POINT_mul(group, SiiP.pECPoint, NULL, P.pECPoint, SiPx.pBN, ctx);
 
         BigNum SiiPx;
         BigNum SiiPy;
@@ -213,25 +206,27 @@ int main()
         Riiiy.pBN = BN_new();
         EC_POINT_get_affine_coordinates(group, Riii.pECPoint, Riiix.pBN, Riiiy.pBN, ctx);
 
-        BigNum nextOut2;
-        nextOut2.pBN = BN_new();
-        BN_copy(nextOut2.pBN, Riiix.pBN);
+        BigNum roundOut2;
+        roundOut2.pBN = BN_new();
+        BN_copy(roundOut2.pBN, Riiix.pBN);
         for (int i = 0; i < 16; ++i)
         {
-            BN_clear_bit(nextOut2.pBN, 255 - i);
+            BN_clear_bit(roundOut2.pBN, 255 - i);
         }
 
-        BN_bn2bin(nextOut2.pBN, &pad[30]);
+        BN_bn2bin(roundOut2.pBN, &pad[30]);
 
+        // Decode the second half
         for (int i = 30; i < 60; ++i)
         {
             plainText[i] ^= pad[i];
         }
 
+        // If the second half is also ascii, then we've found the plaintext message.
         if (isAscii(&plainText[30], 30))
         {
-            cout << plainText << endl;
-            return 0;
+            std::cout << plainText << std::endl;
+            break;
         }
     }
 
