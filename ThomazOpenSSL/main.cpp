@@ -6,7 +6,7 @@
 using namespace std;
 
 // Make wrapper classes for BigNum and elliptic curve points
-// just to ensure that they get deallocated.
+// so I don't have to manually free a dozen objects every iteration.
 class EcPoint {
 public:
     EcPoint(EC_GROUP* group) {
@@ -33,8 +33,6 @@ public:
     BIGNUM* pBN;
 };
 
-static size_t crv_len = 0;
-static EC_builtin_curve* curves = NULL;
 static const uint8_t cipherText[60] = {
     0x05, 0x57, 0xd8, 0xc1, 0xaa, 0x7d, 0x3d, 0xf8, 0xe9, 0x64, 0xdd, 0x8d, 0x84, 0x15, 0x8c, 0x6c,
     0x16, 0x16, 0xf5, 0xdc, 0x59, 0x56, 0xcd, 0x31, 0xe7, 0x83, 0x52, 0x08, 0xa8, 0x1d, 0x97, 0xbc,
@@ -56,29 +54,24 @@ int main()
 {
     BN_CTX* ctx = BN_CTX_new();
     EC_GROUP* group = EC_GROUP_new_by_curve_name(NID_X9_62_prime256v1);
+
+    /* Construct point P, and get x,y coordinates */
     BigNum Px;
     BigNum Py;
     BN_hex2bn(&Px.pBN, "6b17d1f2e12c4247f8bce6e563a440f277037d812deb33a0f4a13945d898c296");
     BN_hex2bn(&Py.pBN, "4fe342e2fe1a7f9b8ee7eb4a7c0f9e162bce33576b315ececbb6406837bf51f5");
     EcPoint P(group);
-    if (0 == EC_POINT_set_affine_coordinates(group, P.pECPoint, Px.pBN, Py.pBN, ctx))
-    {
-        cerr << "error" << endl;
-        return -1;
-    }
+    EC_POINT_set_affine_coordinates(group, P.pECPoint, Px.pBN, Py.pBN, ctx);
 
+    /* Construct point Q, and get x,y coordinates */
     BigNum Qx;
     BigNum Qy;
     BN_hex2bn(&Qx.pBN, "49394cc5234d0c7ff6cedb672eedcca25c766f85b99e8516849a238895dd4b5d");
     BN_hex2bn(&Qy.pBN, "2b4fcd02b54a921a42560703e8f255930acf2176fc30b998e3899dcdac1ad226");
-
     EcPoint Q(group);
-    if (0 == EC_POINT_set_affine_coordinates(group, Q.pECPoint, Qx.pBN, Qy.pBN, ctx))
-    {
-        cerr << "error" << endl;
-        return -1;
-    }
+    EC_POINT_set_affine_coordinates(group, Q.pECPoint, Qx.pBN, Qy.pBN, ctx);
 
+    /* Construct other constants defined by puzzle: k, a, b, p, and t0 (the ciphertext) */
     BigNum k;
     BN_dec2bn(&k.pBN, "12113342872023565048219014074686803499776563817452241627720106650707428480409");
 
@@ -93,17 +86,21 @@ int main()
     BigNum p;
     BN_dec2bn(&p.pBN, "115792089210356248762697446949407573530086143415290314195533631308867097853951");
 
+    // First try to guess si * Q.We know all but(the top) 16 - bits of(siQ)x, so brute force those bits.
+    // Iterate over all possible values of x
     for (uint32_t i = 0; i < 65536; ++i)
     {
         unsigned char plainText[61];
         memcpy(plainText, cipherText, 60);
-        plainText[60] = '\0';
+        plainText[60] = '\0';   //null terminate the string for printing convenience
 
-        BigNum msbs;
+        // The most significant bits for this iteration.
+        BigNum msbs;    
         msbs.pBN = BN_new();
-        BN_set_word(msbs.pBN, i); // TODO CHECK
+        BN_set_word(msbs.pBN, i); 
 
-        BigNum msbs_after;
+        // shift the bits to the top
+        BigNum msbs_after;  
         msbs_after.pBN = BN_new();
         BN_lshift(msbs_after.pBN, msbs.pBN, 240);
 
@@ -130,10 +127,12 @@ int main()
         partial.pBN = BN_new();
         BN_add(partial.pBN, x3.pBN, ax.pBN);
 
+        // sum up partial sums to get y^2
         BigNum y2;
         y2.pBN = BN_new();
         BN_add(y2.pBN, partial.pBN, b.pBN);
 
+        // Use modular square root function to compute y
         BigNum y;
         y.pBN = BN_new();
         BN_mod_sqrt(y.pBN, y2.pBN, p.pBN, ctx);
