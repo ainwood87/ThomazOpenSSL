@@ -54,19 +54,6 @@ static bool isAscii(unsigned char* buf)
 
 int main()
 {
-#if 0
-    crv_len = EC_get_builtin_curves(NULL, 0);
-    curves = (EC_builtin_curve*)OPENSSL_malloc(sizeof(*curves) * crv_len);
-    EC_get_builtin_curves(curves, crv_len);
-
-    for (size_t idx = 0; idx < crv_len; ++idx)
-    {
-        cout << "Curve:" << endl;
-        cout << curves[idx].nid << endl;
-        cout << curves[idx].comment << endl << endl;
-    }
-#endif
-
     BN_CTX* ctx = BN_CTX_new();
     EC_GROUP* group = EC_GROUP_new_by_curve_name(NID_X9_62_prime256v1);
     BigNum Px;
